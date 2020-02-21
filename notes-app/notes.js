@@ -6,13 +6,32 @@ function getNotes() {
 
 const addNote = (title, body) => {
   const notes = loadNotes();
-
-  notes.push({
-    title: title,
-    body: body
+  const duplicateNotes = notes.filter(function(note) {
+    return note.title === title;
   });
+  if (duplicateNotes.length === 0) {
+    notes.push({
+      title: title,
+      body: body
+    });
 
-  saveNotes(notes);
+    saveNotes(notes);
+  } else {
+    console.log("Note title taken!");
+  }
+};
+
+const removeNote = title => {
+  const notes = loadNotes();
+
+  for (i = 0; i < notes.length; i++) {
+    if (notes[i].title === title) {
+      notes.splice(i, 1);
+      saveNotes(notes);
+    } else {
+      console.log("something isnt working!");
+    }
+  }
 };
 
 const saveNotes = function(notes) {
@@ -31,5 +50,6 @@ const loadNotes = () => {
 
 module.exports = {
   getNotes: getNotes,
-  addNote: addNote
+  addNote: addNote,
+  removeNote: removeNote
 };
