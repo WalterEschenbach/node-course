@@ -1,3 +1,7 @@
+// Path is built into node.js and is used to handle and transform files paths
+// Express is a web framework for node.js
+// hbs is an npm package used as the default view engine
+
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
@@ -43,6 +47,22 @@ app.get("/weather", (req, res) => {
   res.send({
     forecast: "It is snowing",
     location: "Chicago"
+  });
+});
+
+app.get("/help/*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    name: "Walter",
+    errorMessage: "Help article not found..."
+  });
+});
+
+app.get("*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    name: "Walter",
+    errorMessage: "Page not found..."
   });
 });
 
