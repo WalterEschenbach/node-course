@@ -5,6 +5,8 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
+const forecast = require("/forecast");
+const geocode = require("/geocode");
 
 const app = express();
 
@@ -42,6 +44,12 @@ app.get("/help", (req, res) => {
     name: "Walter"
   });
 });
+
+// wire up /weather
+// 1. Require GeoCode/forecast into App.js
+// 2. Use the address to GeoCode
+// 3. Use the coordinates to get forecast
+// 4. Send back the real forecast and location
 
 app.get("/weather", (req, res) => {
   if (!req.query.address) {
