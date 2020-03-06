@@ -5,9 +5,10 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
-const forecast = require("/forecast");
+const forecast = require("/utils/forecast");
 const geocode = require("/geocode");
 
+// Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 const app = express();
 
 // Define paths for express config
@@ -22,6 +23,8 @@ hbs.registerPartials(partialsPath);
 
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath));
+
+//Middleware functions are functions that have access to the request object ( req ), the response object ( res ), and the next function in the application's request-response cycle.
 
 app.get("", (req, res) => {
   res.render("index", {
