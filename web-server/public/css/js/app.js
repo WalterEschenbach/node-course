@@ -2,10 +2,8 @@ console.log("Client side js file is loaded");
 
 const weatherForm = document.querySelector("form");
 const searchElement = document.querySelector("input");
-const messageOne = document.getElementById("#message-1");
-const messageTwo = document.getElementById("#message-2");
-
-messageOne.textContent = "From JavaScript";
+const messageOne = document.querySelector("#mess1");
+const messageTwo = document.querySelector("#mess2");
 
 weatherForm.addEventListener("submit", e => {
   e.preventDefault();
@@ -16,8 +14,8 @@ weatherForm.addEventListener("submit", e => {
       if (data.error) {
         console.log(data.error);
       } else {
-        console.log(data.location);
-        console.log(data.forecast);
+        messageOne.textContent = data.location;
+        messageTwo.textContent = data.forecast;
       }
     });
   });
