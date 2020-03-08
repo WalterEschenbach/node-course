@@ -10,6 +10,7 @@ const forecast = require("./utils/forecast");
 
 // Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 const app = express();
+const port = process.env.PORT || 3000;
 
 // Define paths for express config
 const publicDirectoryPath = path.join(__dirname, "../public");
@@ -106,6 +107,6 @@ app.get("*", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("Server is up on port 3000");
+app.listen(port, () => {
+  console.log("Server is up on port " + port);
 });
