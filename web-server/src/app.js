@@ -5,8 +5,8 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
-const forecast = require("/utils/forecast");
-const geocode = require("/geocode");
+const geocode = require("./utils/geocode");
+const forecast = require("./utils/forecast");
 
 // Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 const app = express();
@@ -48,23 +48,34 @@ app.get("/help", (req, res) => {
   });
 });
 
-// wire up /weather
-// 1. Require GeoCode/forecast into App.js
-// 2. Use the address to GeoCode
-// 3. Use the coordinates to get forecast
-// 4. Send back the real forecast and location
-
+//http endpoint
 app.get("/weather", (req, res) => {
   if (!req.query.address) {
     return res.send({
       error: "You must provide an address..."
     });
   }
-  res.send({
-    forecast: "It is snowing",
-    location: "Chicago",
-    address: req.query.address
-  });
+
+  geocode(
+    req.query.address,
+    (error, { latitude, longitude, location } = {}) => {
+      if (error) {
+        return res.send({
+          error
+        });
+      }
+      forecast(latitude, longitude, (error, forecastData) => {
+        if (error) {
+          return res.send({ error });
+        }
+        res.send({
+          forecast: forecastData,
+          location,
+          address: req.query.address
+        });
+      });
+    }
+  );
 });
 
 app.get("/products", (req, res) => {
