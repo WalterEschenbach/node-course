@@ -14,6 +14,7 @@ const forecast = (lon, lat, callback) => {
     } else if (body.length === 0) {
       callback("Unable to find Location. Try another Search:", undefined);
     } else {
+      console.log(body.daily.data[0]);
       callback(
         undefined,
 
