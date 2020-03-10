@@ -10,7 +10,7 @@ const connectionURL = "mongodb://127.0.0.1:27017";
 const databaseName = "task-manager";
 
 const id = new ObjectID();
-console.log(id);
+console.log(id.id);
 
 MongoClient.connect(
   connectionURL,
@@ -23,8 +23,9 @@ MongoClient.connect(
 
     // db.collection("users").insertOne(
     //   {
-    //     name: "Walter",
-    //     age: 28
+    //     _id: id,
+    //     name: "Johnny",
+    //     age: 31
     //   },
     //   (error, result) => {
     //     if (error) {
